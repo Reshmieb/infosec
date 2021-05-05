@@ -5,18 +5,18 @@
  
 var express = require('express');
 var app = express();
-var fs = require('fs');
-var path = require('path');
+var fs = require('fs');                                              
+var path = require('path'); 
 const router = express.Router();
 module.exports = router ;
-
+        
 app.use(function(req, res, next) {
-  res.set({
+  res.set({  
     "Access-Control-Allow-Origin" : "*",
     "Access-Control-Allow-Headers" : "Origin, X-Requested-With, content-type, Accept"
   });
   app.disable('x-powered-by');
-  next();
+  next();   
 });
 
 app.get('/file/*?', function(req, res, next) {
@@ -25,15 +25,15 @@ app.get('/file/*?', function(req, res, next) {
     if(err) { return next(err) }
     res.type('txt').send(data.toString());
   });
-});
+});   
 
-
+ 
 var main = require('./myApp.js');
-app.get('/app-info', function(req, res) {
+app.get('/_api/app-info', function(req, res) {
   
   // list middlewares mounted on the '/' camper's app
   var appMainRouteStack = main._router.stack
-    .filter(s => s.path === '')
+    .filter(s => s.path === '')                   
     .map(l => l.name)
     // filter out express default middlewares
     .filter(n => !(n === 'query' ||
